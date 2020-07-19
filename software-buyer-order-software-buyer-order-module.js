@@ -527,8 +527,8 @@ class CreateOrderComponent {
                 this.price = (Math.round(data.Price * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.amount = this.price;
                 this.titleService.setTitle(data.ProductDescription);
-                this.metaService.updateTag({ name: 'og:image', content: data.ImageURL });
                 this.metaService.updateTag({ name: 'og:title', content: data.ProductDescription });
+                this.metaService.updateTag({ name: 'og:image', content: data.ImageURL });
                 this.metaService.updateTag({ name: 'og:description', content: data.Particulars });
                 this.createOrderSpinnerHidden = true;
                 this.createOrderSpinnerContentHidden = false;
@@ -588,8 +588,10 @@ class CreateOrderComponent {
     }
     ngOnInit() {
         this.metaService.addTags([
-            { name: 'og:image', content: '' },
             { name: 'og:title', content: 'Ordercliq' },
+            { name: 'og:type', content: 'Online Ordering System' },
+            { name: 'og:url', content: 'https://www.orderfolder.com/' },
+            { name: 'og:image', content: 'https://www.orderfolder.com/assets/logo/ordercliq_logo_nav.png' },
             { name: 'og:description', content: 'Manage your orders with ease like a folder.' }
         ]);
         this.getProductDetail();
