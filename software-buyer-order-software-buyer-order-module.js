@@ -527,11 +527,9 @@ class CreateOrderComponent {
                 this.price = (Math.round(data.Price * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.amount = this.price;
                 this.titleService.setTitle(data.ProductDescription);
-                this.metaService.addTags([
-                    { name: 'og:title', content: data.ProductDescription },
-                    { name: 'og:image', content: data.ImageURL },
-                    { name: 'price', content: this.price.toString() }
-                ]);
+                this.metaService.updateTag({ name: 'og:image', content: data.ImageURL });
+                this.metaService.updateTag({ name: 'og:title', content: data.ProductDescription });
+                this.metaService.updateTag({ name: 'og:description', content: data.Particulars });
                 this.createOrderSpinnerHidden = true;
                 this.createOrderSpinnerContentHidden = false;
                 this.getLoginUserDetail();
@@ -589,6 +587,11 @@ class CreateOrderComponent {
         });
     }
     ngOnInit() {
+        this.metaService.addTags([
+            { name: 'og:image', content: '' },
+            { name: 'og:title', content: 'Ordercliq' },
+            { name: 'og:description', content: 'Manage your orders with ease like a folder.' }
+        ]);
         this.getProductDetail();
     }
     ngOnDestroy() {
