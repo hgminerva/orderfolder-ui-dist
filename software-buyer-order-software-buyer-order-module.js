@@ -527,9 +527,13 @@ class CreateOrderComponent {
                 this.price = (Math.round(data.Price * 100) / 100).toFixed(2).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 this.amount = this.price;
                 this.titleService.setTitle(data.ProductDescription);
-                this.metaService.updateTag({ property: 'og:title', content: data.ProductDescription });
-                this.metaService.updateTag({ property: 'og:image', content: data.ImageURL });
-                this.metaService.updateTag({ property: 'og:description', content: data.Particulars });
+                this.metaService.addTags([
+                    { property: 'og:title', content: data.ProductDescription },
+                    { property: 'og:type', content: 'Online Ordering System' },
+                    { property: 'og:url', content: 'https://www.orderfolder.com/software-buyer-order/create-order/' + productId },
+                    { property: 'og:image', content: data.ImageURL },
+                    { property: 'og:description', content: data.Particulars }
+                ]);
                 this.createOrderSpinnerHidden = true;
                 this.createOrderSpinnerContentHidden = false;
                 this.getLoginUserDetail();
@@ -587,13 +591,6 @@ class CreateOrderComponent {
         });
     }
     ngOnInit() {
-        this.metaService.addTags([
-            { property: 'og:title', content: 'Ordercliq' },
-            { property: 'og:type', content: 'Online Ordering System' },
-            { property: 'og:url', content: 'https://www.orderfolder.com/' },
-            { property: 'og:image', content: 'https://www.orderfolder.com/assets/logo/ordercliq_logo_nav.png' },
-            { property: 'og:description', content: 'Manage your orders with ease like a folder.' }
-        ]);
         this.getProductDetail();
     }
     ngOnDestroy() {
